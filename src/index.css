@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Fraunces', serif;
+  --font-sans:    'Outfit', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+/* ── Design tokens ─────────────────────────────────────────────────────── */
+:root {
+  --bg:        #04090f;
+  --surface:   #091422;
+  --surface-2: #0f1e32;
+  --surface-3: #162843;
+  --border:    rgba(255,255,255,0.07);
+  --border-hi: rgba(255,255,255,0.13);
+
+  /* Brand colors */
+  --emerald:   #34d399;
+  --sapphire:  #60a5fa;
+  --violet:    #a78bfa;
+  --gold:      #fbbf24;
+  --rose:      #fb7185;
+  --teal:      #2dd4bf;
+
+  --text:      #e8f4f0;
+  --muted:     rgba(232,244,240,0.42);
+  --muted-hi:  rgba(232,244,240,0.65);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #020710;
+}
+#root > * { width: 100%; }
+
+::-webkit-scrollbar { display: none; }
+* { scrollbar-width: none; }
+
+/* ── Keyframes ──────────────────────────────────────────────────────────── */
+@keyframes ripple {
+  0%   { transform: scale(0);   opacity: 0.5; }
+  100% { transform: scale(4.5); opacity: 0;   }
+}
+@keyframes countPop {
+  0%   { transform: scale(1)    translateY(0);     opacity: 1; }
+  35%  { transform: scale(1.18) translateY(-10px); opacity: 0; }
+  36%  { transform: scale(0.82) translateY(12px);  opacity: 0; }
+  100% { transform: scale(1)    translateY(0);     opacity: 1; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes shimmer {
+  0%   { background-position: -300% center; }
+  100% { background-position:  300% center; }
+}
+@keyframes ringPulse {
+  0%   { transform: scale(1);    opacity: 0.5; }
+  100% { transform: scale(1.55); opacity: 0;   }
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+.fade-up { animation: fadeUp 0.38s cubic-bezier(.22,1,.36,1) forwards; }
+
+/* Shimmer title */
+.shimmer-text {
+  background: linear-gradient(100deg, var(--emerald) 0%, var(--teal) 30%, var(--gold) 60%, var(--emerald) 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 5s linear infinite;
+}
+
+/* Glass surfaces */
+.glass {
+  background: rgba(255,255,255,0.045);
+  border: 1px solid var(--border-hi);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Tap button base */
+.tap-btn {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.08s ease;
+  will-change: transform;
+}
+.tap-btn:active { transform: scale(0.953); }
+
+.ripple-el {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  animation: ripple 0.65s cubic-bezier(.22,1,.36,1) forwards;
+  pointer-events: none;
+}
